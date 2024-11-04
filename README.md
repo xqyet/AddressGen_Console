@@ -2,12 +2,6 @@
 
 A simple C# console application that generates BNB Smart Chain wallet addresses containing a specific string after the `0x` prefix.
 
-## About
-
-This application generates BNB Smart Chain addresses and allows you to search for a "vanity address," where the beginning of the address matches a specific prefix. This can be useful if you want an address with a custom pattern for aesthetic or branding purposes.
-
-## Getting Started
-
 ### Prerequisites
 
 - **.NET Framework**: Make sure you have the .NET Framework installed on your machine. You can download it from [Microsoft's .NET Download page](https://dotnet.microsoft.com/download).
@@ -44,9 +38,6 @@ This application generates BNB Smart Chain addresses and allows you to search fo
 
 The program will continue to generate addresses until it finds one that matches the specified prefix.
 
-### Important Note
-
-Generating a specific vanity prefix can take time. The longer the prefix, the more attempts may be needed. For an 8-character prefix, it could take a considerable amount of time to find a match.
 
 ## Example Output
 
