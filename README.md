@@ -1,6 +1,6 @@
 # BNB Wallet Generator
 
-A simple C# console application that generates BNB Smart Chain wallet addresses containing a specific string after the `0x` prefix.
+A simple C# console application that bruteforces BNB Smart Chain wallet addresses containing a specific string after the `0x` prefix. 10,000 wallets per 30 seconds with CPU multithreading (will add logic for additional compute)
 
 ### Prerequisites
 
