@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Nethereum.Signer;
 using Nethereum.Util;
@@ -9,17 +10,32 @@ namespace BNB_WalletGenerator
     {
         private static volatile bool isMatchFound = false; // Shared flag for stopping threads
         private static readonly object consoleLock = new object(); // Lock for thread-safe console output
+        private static int attempts = 0; // Track the number of attempts
 
         static void Main(string[] args)
         {
-            string targetPrefix = "dAC"; // Target wallet address string after '0x'
+            string targetPrefix = "deadc"; // Target wallet address string after '0x'
+
+            // Start a timer to display the number of attempts every second
+            Timer timer = new Timer(DisplayAttempts, null, 0, 1000);
+
             GenerateVanityBnbAddress(targetPrefix);
             Console.ReadLine(); // Keep the console open
         }
 
+        // Method to display attempts every second
+        private static void DisplayAttempts(object state)
+        {
+            lock (consoleLock)
+            {
+                // Move the cursor to the beginning of the line
+                Console.SetCursorPosition(0, Console.CursorTop);
+                Console.Write($"Wallets checked: {attempts}");
+            }
+        }
+
         static void GenerateVanityBnbAddress(string targetPrefix)
         {
-            int attempts = 0;
             string foundPrivateKey = string.Empty;
             string foundAddress = string.Empty;
 
@@ -43,8 +59,9 @@ namespace BNB_WalletGenerator
                         // Lock console output to prevent overlaps
                         lock (consoleLock)
                         {
+                            Console.WriteLine();
                             Console.WriteLine("Match found!");
-                            Console.WriteLine("Attempts: " + attempts);
+                            Console.WriteLine("Total Attempts: " + attempts);
                             Console.WriteLine("Private Key: " + foundPrivateKey);
                             Console.WriteLine("BNB Smart Chain Address: " + foundAddress);
                         }
@@ -53,7 +70,8 @@ namespace BNB_WalletGenerator
                         state.Stop();
                     }
 
-                    attempts++; // Increment attempts
+                    // Increment attempts in a thread-safe manner
+                    Interlocked.Increment(ref attempts);
                 }
             });
         }
