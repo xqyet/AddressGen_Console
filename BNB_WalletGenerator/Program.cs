@@ -14,7 +14,7 @@ namespace BNB_WalletGenerator
 
         static void Main(string[] args)
         {
-            string targetPrefix = "deadc4"; // Target wallet address string after '0x'
+            string targetPrefix = "string_here"; // Target wallet address string after '0x'
 
             // Start a timer to display the number of attempts every 5 seconds
             Timer timer = new Timer(DisplayAttempts, null, 0, 5000);
